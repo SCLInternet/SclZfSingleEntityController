@@ -76,7 +76,8 @@ class ControllerListenerTest extends \PHPUnit_Framework_TestCase
                ->with(
                     $this->equalTo('Zend\Mvc\Controller\AbstractActionController'),
                     $this->equalTo($callback)
-                );
+                )
+               ->will($this->returnValue(true));
 
         $this->listener->detachShared($events);
     }
