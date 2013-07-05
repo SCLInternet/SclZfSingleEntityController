@@ -12,7 +12,7 @@ use SclZfSingleEntityController\Exception\NoEntityException;
  * @author Tom Oram
  * @todo   Add success/failure messages.
  */
-class SingleScudEntityController extends SingleEntityController implements
+class SingleEntityScudController extends SingleEntityController implements
     SingleEntityControllerInterface
 {
     /**
