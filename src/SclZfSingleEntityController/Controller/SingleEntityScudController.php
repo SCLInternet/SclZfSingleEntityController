@@ -16,15 +16,66 @@ class SingleEntityScudController extends SingleEntityController implements
     SingleEntityControllerInterface
 {
     /**
-     * A list of actions which require the entity to be pre-loaded.
+     * The name of the variable to be used in the list (index) action.
      *
-     * @var array
+     * @var string
      */
-    protected $entityRequiredActions = array(
-        'edit',
-        'view',
-        'delete',
-    );
+    protected $listVariable;
+
+    /**
+     * The name of the variable to be used in the view action.
+     *
+     * @var string
+     */
+    protected $viewVariable;
+
+    /**
+     * The route to redirect to after adding, editing and deleting.
+     *
+     * @var string
+     */
+    protected $redirectRoute;
+
+    /**
+     * The name of the list search container.
+     *
+     * @var string
+     */
+    protected $searchContainerName;
+
+    /**
+     * Set the mapper for the controller.
+     *
+     * @param string                        $listVariable
+     * @param string                        $viewVariable
+     * @param string                        $redirectRoute
+     * @param string                        $searchContainerName
+     * @param GenericMapperInterface|string $mapper  The mapper instance or the mapper service name.
+     * @param array                         $entityRequiredActions
+     */
+    public function __construct(
+        $listVariable,
+        $viewVariable,
+        $redirectRoute,
+        $searchContainerName,
+        $mapper = null,
+        array $entityRequiredActions = null
+    ) {
+        $this->listVariable        = (string) $listVariable;
+        $this->viewVariable        = (string) $viewVariable;
+        $this->redirectRoute       = (string) $redirectRoute;
+        $this->searchContainerName = (string) $searchContainerName;
+
+        if (null === $entityRequiredActions) {
+            $entityRequiredActions = array(
+                'edit',
+                'view',
+                'delete',
+            );
+        }
+
+        parent::__construct($mapper, $entityRequiredActions);
+    }
 
     /**
      * Display a searchable list of entities.

@@ -15,34 +15,6 @@ class SingleEntityController extends ZendActionController implements
     SingleEntityControllerInterface
 {
     /**
-     * The name of the variable to be used in the list (index) action.
-     *
-     * @var string
-     */
-    protected $listVariable;
-
-    /**
-     * The name of the variable to be used in the view action.
-     *
-     * @var string
-     */
-    protected $viewVariable;
-
-    /**
-     * The route to redirect to after adding, editing and deleting.
-     *
-     * @var string
-     */
-    protected $redirectRoute;
-
-    /**
-     * The name of the list search container.
-     *
-     * @var string
-     */
-    protected $searchContainerName;
-
-    /**
      * The mapper for loading and saving the entities that this controller works with.
      *
      * @var GenericMapperInterface
@@ -67,32 +39,16 @@ class SingleEntityController extends ZendActionController implements
     /**
      * Set the mapper for the controller.
      *
-     * @param string                        $listVariable
-     * @param string                        $viewVariable
-     * @param string                        $redirectRoute
-     * @param string                        $searchContainerName
      * @param GenericMapperInterface|string $mapper  The mapper instance or the mapper service name.
+     * @param array                         $entityRequiredActions
      */
-    public function __construct(
-        $listVariable,
-        $viewVariable,
-        $redirectRoute,
-        $searchContainerName,
-        $mapper = null,
-        array $entityRequiredActions = null
-    ) {
-        $this->listVariable        = (string) $listVariable;
-        $this->viewVariable        = (string) $viewVariable;
-        $this->redirectRoute       = (string) $redirectRoute;
-        $this->searchContainerName = (string) $searchContainerName;
-
+    public function __construct($mapper = null, array $entityRequiredActions = array())
+    {
         if (null !== $mapper) {
             $this->setMapper($mapper);
         }
 
-        if (null !== $entityRequiredActions) {
-            $this->setEntityRequiredActions($entityRequiredActions);
-        }
+        $this->setEntityRequiredActions($entityRequiredActions);
     }
 
     /**
