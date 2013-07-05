@@ -32,7 +32,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
     /**
      * Test the module bootstrapping code.
      *
-     * @covers SclZfUtilities\Module::onBootstrap
+     * @covers SclZfSingleEntityController\Module::onBootstrap
      *
      * @return void
      */
@@ -72,7 +72,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
     /**
      * testGetAutoloaderConfig
      *
-     * @covers SclZfUtilities\Module::getAutoloaderConfig
+     * @covers SclZfSingleEntityController\Module::getAutoloaderConfig
      *
      * @return void
      */
@@ -101,7 +101,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
     /**
      * Check the service manager config.
      *
-     * @covers SclZfUtilities\Module::getAutoloaderConfig
+     * @covers SclZfSingleEntityController\Module::getAutoloaderConfig
      *
      * @return void
      */
