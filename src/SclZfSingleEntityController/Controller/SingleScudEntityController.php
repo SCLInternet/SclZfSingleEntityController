@@ -16,6 +16,17 @@ class SingleScudEntityController extends SingleEntityController implements
     SingleEntityControllerInterface
 {
     /**
+     * A list of actions which require the entity to be pre-loaded.
+     *
+     * @var array
+     */
+    protected $entityRequiredActions = array(
+        'edit',
+        'view',
+        'delete',
+    );
+
+    /**
      * Display a searchable list of entities.
      *
      * @return array

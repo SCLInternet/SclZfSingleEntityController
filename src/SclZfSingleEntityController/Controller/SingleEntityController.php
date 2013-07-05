@@ -62,11 +62,7 @@ class SingleEntityController extends ZendActionController implements
      *
      * @var array
      */
-    protected $entityRequiredActions = array(
-        'edit',
-        'view',
-        'delete',
-    );
+    protected $entityRequiredActions = array();
 
     /**
      * Set the mapper for the controller.
