@@ -101,7 +101,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
     /**
      * Check the service manager config.
      *
-     * @covers SclZfSingleEntityController\Module::getAutoloaderConfig
+     * @covers SclZfSingleEntityController\Module::getServiceConfig
      *
      * @return void
      */
