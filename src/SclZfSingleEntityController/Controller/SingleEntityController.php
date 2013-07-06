@@ -2,6 +2,8 @@
 
 namespace SclZfSingleEntityController\Controller;
 
+use SclZfSingleEntityController\Exception\InvalidArgumentException;
+use SclZfSingleEntityController\Exception\NoMapperException;
 use SclZfUtilities\Mapper\GenericMapperInterface;
 use Zend\Mvc\Controller\AbstractActionController as ZendActionController;
 
@@ -20,14 +22,14 @@ class SingleEntityController extends ZendActionController implements
      * @var GenericMapperInterface
      * @todo Move the mapper provider trait
      */
-    protected $mapper;
+    protected $mapper = null;
 
     /**
      * The current entity being worked on.
      *
      * @var object
      */
-    protected $entity;
+    protected $entity = null;
 
     /**
      * A list of actions which require the entity to be pre-loaded.
@@ -82,7 +84,7 @@ class SingleEntityController extends ZendActionController implements
      */
     public function getMapper()
     {
-        if (!$this->mapper instanceof GenericMapperInterface) {
+        if (!$this->mapper instanceof GenericMapperInterface && !empty($this->mapper)) {
             $this->setMapper($this->getServiceLocator()->get($this->mapper));
         }
 
@@ -92,8 +94,9 @@ class SingleEntityController extends ZendActionController implements
     /**
      * Set the mapper.
      *
-     * @param  GenericMapperInterface $mapper
+     * @param  GenericMapperInterface  $mapper
      * @return self
+     * @throws InvalidArgumentException When $mapper is and object which is not an instanceof GenericMapperInterface
      * @todo   Move the mapper provider trait
      */
     public function setMapper($mapper)
@@ -113,16 +116,18 @@ class SingleEntityController extends ZendActionController implements
     /**
      * Set the current entity to be worked on.
      *
-     * @param  object $entity
+     * @param  object                   $entity
      * @return self
+     * @throws NoMapperException        If the mapper has not yet been set.
+     * @throws InvalidArgumentException If the entity is not of the type specified by the mapper.
      */
     public function setEntity($entity)
     {
         $mapper = $this->getMapper();
 
-        if (!$mapper instanceof GenericMapperInterface) {
-            throw new RuntimeException(
-                'setEntity was called before the mapper was set.'
+        if (null == $mapper) {
+            throw new NoMapperException(
+                __METHOD__ . ' was called before the mapper was set.'
             );
         }
 

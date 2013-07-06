@@ -1,6 +1,6 @@
 <?php
 
-namespace SclZfSingleEntity\Exception;
+namespace SclZfSingleEntityController\Exception;
 
 /**
  * InvalidArgumentException
