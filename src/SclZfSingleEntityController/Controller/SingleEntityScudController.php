@@ -3,7 +3,6 @@
 namespace SclZfSingleEntityController\Controller;
 
 use SclZfUtilities\Mapper\GenericMapperInterface;
-use SclZfSingleEntityController\Exception\NoEntityException;
 
 /**
  * A generic controller which provides add, edit, delete & view actions for a
@@ -117,15 +116,10 @@ class SingleEntityScudController extends SingleEntityController implements
      * Display a form to edit an entity.
      *
      * @return array
-     * @throws NoEntityException When no entity is loaded.
      */
     public function editAction()
     {
-        $entity = $this->getEntity();
-
-        if (null == $entity) {
-            throw new NoEntityException(__METHOD__);
-        }
+        $entity = $this->getEntity(true);
 
         $form = $this->getFormBuilder()->createForm($entity, 'Edit');
 
@@ -143,15 +137,10 @@ class SingleEntityScudController extends SingleEntityController implements
      * Display an entity.
      *
      * @return array
-     * @throws NoEntityException When no entity is loaded.
      */
     public function viewAction()
     {
-        $entity = $this->getEntity();
-
-        if (null == $entity) {
-            throw new NoEntityException(__METHOD__);
-        }
+        $entity = $this->getEntity(true);
 
         return array($this->viewVariable => $entity);
     }
@@ -160,16 +149,11 @@ class SingleEntityScudController extends SingleEntityController implements
      * Prompt the user to find if they want to delete an entity.
      *
      * @return array
-     * @throws NoEntityException When no entity is loaded.
      * @todo   Add checks that delete requests are valid.
      */
     public function deleteAction()
     {
-        $entity = $this->getEntity();
-
-        if (null == $entity) {
-            throw new NoEntityException(__METHOD__);
-        }
+        $entity = $this->getEntity(true);
 
         $request = $this->getRequest();
 

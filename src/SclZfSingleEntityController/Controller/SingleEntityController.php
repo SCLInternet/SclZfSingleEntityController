@@ -3,6 +3,7 @@
 namespace SclZfSingleEntityController\Controller;
 
 use SclZfSingleEntityController\Exception\InvalidArgumentException;
+use SclZfSingleEntityController\Exception\NoEntityException;
 use SclZfSingleEntityController\Exception\NoMapperException;
 use SclZfUtilities\Mapper\GenericMapperInterface;
 use Zend\Mvc\Controller\AbstractActionController as ZendActionController;
@@ -147,10 +148,21 @@ class SingleEntityController extends ZendActionController implements
     /**
      * Return the current entity being worked on.
      *
+     * @param  bool   $expected  If set to true this method will throw an
+     *                           exception if the entity is not set.
      * @return object
+     * @throws NoEntityException If entity is not set and $expected is true.
      */
-    public function getEntity()
+    public function getEntity($expected = false)
     {
+        if (!$expected) {
+            return $this->entity;
+        }
+
+        if (!is_object($this->entity)) {
+            throw new NoEntityException(__METHOD__);
+        }
+
         return $this->entity;
     }
 

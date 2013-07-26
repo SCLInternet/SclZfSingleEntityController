@@ -117,6 +117,7 @@ class SingleEntityControllerTest extends \PHPUnit_Framework_TestCase
     /**
      * When setEntity() is with a scalar an exception should be thrown.
      *
+     * @depends           testGetSetMapper
      * @covers            SclZfSingleEntityController\Controller\SingleEntityController::setMapper
      * @expectedException SclZfSingleEntityController\Exception\InvalidArgumentException
      *
@@ -131,14 +132,15 @@ class SingleEntityControllerTest extends \PHPUnit_Framework_TestCase
              ->method('getEntityName')
              ->will($this->returnValue('TheEntityClass'));
 
-        $this->controller->setEntity('x');
+        $this->controller->setEntity(new \stdClass);
     }
 
     /**
      * Test the getEntity & setEntity methods.
      *
-     * @covers SclZfSingleEntityController\Controller\SingleEntityController::setEntity
-     * @covers SclZfSingleEntityController\Controller\SingleEntityController::getEntity
+     * @depends testGetSetMapper
+     * @covers  SclZfSingleEntityController\Controller\SingleEntityController::setEntity
+     * @covers  SclZfSingleEntityController\Controller\SingleEntityController::getEntity
      *
      * @return void
      */
@@ -162,6 +164,67 @@ class SingleEntityControllerTest extends \PHPUnit_Framework_TestCase
         );
 
         $result = $this->controller->getEntity();
+
+        $this->assertSame(
+            $entity,
+            $result,
+            'The entity return was not the entity set.'
+        );
+    }
+
+    /**
+     * Test getEntity with no entity set return null.
+     *
+     * @covers SclZfSingleEntityController\Controller\SingleEntityController::getEntity
+     *
+     * @return void
+     */
+    public function testGetEntityWithNoEntityReturnsNull()
+    {
+        $this->assertNull($this->controller->getEntity());
+    }
+
+    /**
+     * Test getEntity with $expected set to true and no entity should throw.
+     *
+     * @covers            SclZfSingleEntityController\Controller\SingleEntityController::getEntity
+     * @expectedException SclZfSingleEntityController\Exception\NoEntityException
+     *
+     * @return void
+     */
+    public function testGetEntityWithExpectedAndNoEntity()
+    {
+        $result = $this->controller->getEntity(true);
+    }
+
+    /**
+     * Test getEntity with $expected set to true.
+     *
+     * @depends testGetSetMapper
+     * @covers  SclZfSingleEntityController\Controller\SingleEntityController::getEntity
+     *
+     * @return void
+     */
+    public function testGetEntityWithExpected()
+    {
+        $entity = new \stdClass();
+
+        $this->controller->setMapper($this->mapper);
+
+        $this->mapper
+             ->expects($this->atLeastOnce())
+             ->method('getEntityName')
+             ->will($this->returnValue('stdClass'));
+
+        $result = $this->controller->setEntity($entity);
+
+        $this->assertSame(
+            $this->controller,
+            $result,
+            'setEntity() did not return $this.'
+        );
+
+        $result = $this->controller->getEntity(true);
 
         $this->assertSame(
             $entity,
