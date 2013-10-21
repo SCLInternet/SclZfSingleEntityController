@@ -14,7 +14,7 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework" : ">=2.2",
-        "sclinternet/scl-zf-utilities": "dev-master"
+        "sclinternet/scl-zf-generic-mapper": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit" : "3.7.*",

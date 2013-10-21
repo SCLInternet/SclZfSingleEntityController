@@ -203,7 +203,7 @@ class ControllerListenerTest extends \PHPUnit_Framework_TestCase
         $id             = 123;
         $entity         = new \stdClass();
 
-        $mapper = $this->getMock('SclZfUtilities\Mapper\GenericMapperInterface');
+        $mapper = $this->getMock('SclZfGenericMapper\MapperInterface');
 
         $this->event
              ->expects($this->once())

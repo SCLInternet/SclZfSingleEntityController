@@ -14,7 +14,7 @@ class SingleEntityControllerTest extends \PHPUnit_Framework_TestCase
     {
         $this->controller = new SingleEntityController();
 
-        $this->mapper = $this->getMock('SclZfUtilities\Mapper\GenericMapperInterface');
+        $this->mapper = $this->getMock('SclZfGenericMapper\MapperInterface');
     }
 
     /**
@@ -74,7 +74,7 @@ class SingleEntityControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * When setMapper() is called with an object which is not an instance of GenericMapperInterface
+     * When setMapper() is called with an object which is not an instance of MapperInterface
      * an exception should be thrown.
      *
      * @covers            SclZfSingleEntityController\Controller\SingleEntityController::setMapper

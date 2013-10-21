@@ -5,7 +5,7 @@ namespace SclZfSingleEntityController\Controller;
 use SclZfSingleEntityController\Exception\InvalidArgumentException;
 use SclZfSingleEntityController\Exception\NoEntityException;
 use SclZfSingleEntityController\Exception\NoMapperException;
-use SclZfUtilities\Mapper\GenericMapperInterface;
+use SclZfGenericMapper\MapperInterface;
 use Zend\Mvc\Controller\AbstractActionController as ZendActionController;
 
 /**
@@ -20,7 +20,7 @@ class SingleEntityController extends ZendActionController implements
     /**
      * The mapper for loading and saving the entities that this controller works with.
      *
-     * @var GenericMapperInterface
+     * @var MapperInterface
      * @todo Move the mapper provider trait
      */
     protected $mapper = null;
@@ -42,8 +42,8 @@ class SingleEntityController extends ZendActionController implements
     /**
      * Set the mapper for the controller.
      *
-     * @param GenericMapperInterface|string $mapper  The mapper instance or the mapper service name.
-     * @param array                         $entityRequiredActions
+     * @param MapperInterface|string $mapper  The mapper instance or the mapper service name.
+     * @param array                  $entityRequiredActions
      */
     public function __construct($mapper = null, array $entityRequiredActions = array())
     {
@@ -80,12 +80,12 @@ class SingleEntityController extends ZendActionController implements
     /**
      * Returns the mapper.
      *
-     * @return GenericMapperInterface
+     * @return MapperInterface
      * @todo   Move the mapper provider trait
      */
     public function getMapper()
     {
-        if (!$this->mapper instanceof GenericMapperInterface && !empty($this->mapper)) {
+        if (!$this->mapper instanceof MapperInterface && !empty($this->mapper)) {
             $this->setMapper($this->getServiceLocator()->get($this->mapper));
         }
 
@@ -95,16 +95,16 @@ class SingleEntityController extends ZendActionController implements
     /**
      * Set the mapper.
      *
-     * @param  GenericMapperInterface  $mapper
+     * @param  MapperInterface  $mapper
      * @return self
-     * @throws InvalidArgumentException When $mapper is and object which is not an instanceof GenericMapperInterface
+     * @throws InvalidArgumentException When $mapper is and object which is not an instanceof MapperInterface
      * @todo   Move the mapper provider trait
      */
     public function setMapper($mapper)
     {
-        if (!$mapper instanceof GenericMapperInterface && is_object($mapper)) {
+        if (!$mapper instanceof MapperInterface && is_object($mapper)) {
             throw new InvalidArgumentException(
-                '$mapper must be an instance of GenericMapperInterface in '
+                '$mapper must be an instance of MapperInterface in '
                 . __METHOD__
             );
         }
@@ -170,10 +170,10 @@ class SingleEntityController extends ZendActionController implements
      * Returns an instance of the EntityFormBuilder initialised with the
      * controller's default mapper.
      *
-     * @param  GenericMapperInterface $mapper
+     * @param  MapperInterface $mapper
      * @return EntityFormBuilder
      */
-    public function getFormBuilder(GenericMapperInterface $mapper = null)
+    public function getFormBuilder(MapperInterface $mapper = null)
     {
         $plugin = $this->plugin('getFormBuilder');
 

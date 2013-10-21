@@ -2,7 +2,7 @@
 
 namespace SclZfSingleEntityController\Controller;
 
-use SclZfUtilities\Mapper\GenericMapperInterface;
+use SclZGenericMapper\MapperInterface;
 use Zend\Mvc\Controller\AbstractActionController as ZendActionController;
 
 /**
@@ -22,7 +22,7 @@ interface SingleEntityControllerInterface
     /**
      * Returns the mapper.
      *
-     * @return GenericMapperInterface
+     * @return MapperInterface
      * @todo   Move the mapper provider trait
      */
     public function getMapper();

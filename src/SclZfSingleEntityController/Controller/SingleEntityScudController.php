@@ -2,7 +2,7 @@
 
 namespace SclZfSingleEntityController\Controller;
 
-use SclZfUtilities\Mapper\GenericMapperInterface;
+use SclZfGenericMapper\MapperInterface;
 
 /**
  * A generic controller which provides add, edit, delete & view actions for a
@@ -45,12 +45,12 @@ class SingleEntityScudController extends SingleEntityController implements
     /**
      * Set the mapper for the controller.
      *
-     * @param string                        $listVariable
-     * @param string                        $viewVariable
-     * @param string                        $redirectRoute
-     * @param string                        $searchContainerName
-     * @param GenericMapperInterface|string $mapper  The mapper instance or the mapper service name.
-     * @param array                         $entityRequiredActions
+     * @param string                 $listVariable
+     * @param string                 $viewVariable
+     * @param string                 $redirectRoute
+     * @param string                 $searchContainerName
+     * @param MapperInterface|string $mapper  The mapper instance or the mapper service name.
+     * @param array                  $entityRequiredActions
      */
     public function __construct(
         $listVariable,

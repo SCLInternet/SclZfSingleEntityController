@@ -5,7 +5,7 @@ namespace SclZfSingleEntityController\Listener;
 use SclZfSingleEntityController\Controller\SingleEntityControllerInterface;
 use SclZfSingleEntityController\Exception\NoMapperException;
 use SclZfSingleEntityController\Exception\RuntimeException;
-use SclZfUtilities\Mapper\GenericMapperInterface;
+use SclZfGenericMapper\MapperInterface;
 use Zend\EventManager\SharedEventManagerInterface;
 use Zend\EventManager\SharedListenerAggregateInterface;
 use Zend\Mvc\MvcEvent;
@@ -83,7 +83,7 @@ class ControllerListener implements SharedListenerAggregateInterface
 
         $mapper = $controller->getMapper();
 
-        if (!$mapper instanceof GenericMapperInterface) {
+        if (!$mapper instanceof MapperInterface) {
             throw new NoMapperException(__METHOD__);
         }
 
