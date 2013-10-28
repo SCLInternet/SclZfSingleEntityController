@@ -86,7 +86,7 @@ class SingleEntityScudController extends SingleEntityController implements
         return array(
             $this->listVariable => $this->getSearchable(
                 $this->getMapper(),
-                'domainSI',
+                $this->searchContainerName,
                 'findAll'
             )
         );
