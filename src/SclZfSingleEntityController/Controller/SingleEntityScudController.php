@@ -161,7 +161,7 @@ class SingleEntityScudController extends SingleEntityController implements
             $del = $request->getPost()->get('del', 'No');
 
             if ($del == 'Yes') {
-                $this->getMapper()->delete($entity);
+                $this->getMapper()->remove($entity);
             }
 
             return $this->redirectToRoute($this->redirectRoute);
